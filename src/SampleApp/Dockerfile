@@ -11,6 +11,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
 
 # Restore dependencies of .net core projects taking advantage of docker layer caching
 COPY src/*/*.csproj ./src/
+COPY Directory.Build.targets Directory.Build.targets
 RUN for file in $(ls src/*.csproj); do mkdir -p ${file%.*} && mv $file ${file%.*}; done
 RUN dotnet restore "src/SampleApp/SampleApp.csproj"
 
